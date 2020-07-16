@@ -121,19 +121,6 @@
         }
     }
 
-    class Clip extends Animacao {
-        constructor(nome, sequenciaQuadros, duracao, loop = true, quandoTerminar) {
-            super(duracao, 0, sequenciaQuadros.length, loop, quandoTerminar);
-            this.nome = nome;
-            this.sequenciaQuadros = sequenciaQuadros;
-        }
-    
-        get quadro() {
-            const indice = Math.max(0, Math.min(this.sequenciaQuadros.length - 1, Math.floor(super.valor)));
-            return this.sequenciaQuadros[indice];
-        }
-    }
-
 // IMAGENS 
 
     let imagemCorazaum = new Image();
@@ -146,19 +133,20 @@
         imagemMeteoro.src = 'imgs/inimigo.png';
 
     let imagemDinoCorre = new Image();
-        imagemDinoCorre.src = 'imgs/inimigo.png'; 
+        imagemDinoCorre.src = 'imgs/dinoCorre.png'; 
 
 // SPRITES
 
-    const animacao = new Animacao(500, 0, 1);
-
+    const animacao = new Animacao(500, 0, 2);
+    animacao.comecar(); 
+    
     let dino = new Object();
         dino.x = x;
         dino.y = y;
         dino.largura = 75;
         dino.altura = 75;
         dino.imagem = imagemDino;
-        dino = new Sprite(dino.x, dino.y, dino.largura, dino.altura, dino.imagem);
+        dino = new Sprite(dino.x, dino.y, dino.largura, dino.altura, imagemDinoCorre);
 
     let meteoros = [];
         meteoros.x = Math.random() * LARGURA_JOGO - 100 /*largura do meteoro*/;
@@ -206,8 +194,6 @@
             tiro.desenha(ctx);
         }
 
-        dino.desenha(ctx);
-
         ctx.font = '40px monospace';
         ctx.fillStyle = 'darkblue';
         ctx.fillText(pontos, 650, 60);
@@ -217,9 +203,9 @@
         atualizaInimigos();
         atualizaTiros();
         verificaColisoes();
-        atualizaAnimacao();
 
         desenhaJogo();
+        atualizaAnimacao();
     }
 
     function atualizaInimigos() {
@@ -275,9 +261,9 @@
             imagemDinoCorre,
             quadro * 14,
             0,
-            75,
-            75,
-            x, y, 75, 75
+            14,
+            18,
+            dino.x, dino.y, 75, 75
         );
     }
 
@@ -287,7 +273,7 @@
         let quadro = animacao.valor;
         quadro = Math.floor(quadro);
 
-        desenhaQuadro(x, y, quadro);
+        desenhaQuadro(quadro, x, y);
     }
 
     setInterval(atualizaLogica, 33);
@@ -303,9 +289,7 @@
     });
 
     canvasEl.addEventListener('mousemove', (evento) =>{
-        dino.x = evento.offsetX;
-        animacao.comecar();    
-        desenhaJogo();
+        dino.x = evento.offsetX;   
     });
 
     canvasEl.addEventListener('click', (evento) =>{
