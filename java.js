@@ -187,6 +187,7 @@
         tiros.altura = 20;
     
     let pontos = 0;
+    let vidas = 4;
 
 // FUNÇÕES
 
@@ -245,6 +246,10 @@
             if (MeteoroAtingiuDino) {
                 meteoro.destruir();
                 corazauns.pop();
+                vidas--;
+                if (vidas==0){
+                    alert('VOCÊ FOI EXTINTO ! :(');
+                }
             }
         }
 
