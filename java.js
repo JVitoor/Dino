@@ -249,6 +249,11 @@
                 vidas--;
                 if (vidas==0){
                     alert('VOCÊ FOI EXTINTO ! :(');
+                    corazauns.push(new Sprite(corazauns.x , corazauns.y, corazauns.largura, corazauns.altura, corazauns.imagem));
+                    corazauns.push(new Sprite(corazauns.x + 50, corazauns.y, corazauns.largura, corazauns.altura, corazauns.imagem));
+                    corazauns.push(new Sprite(corazauns.x + 100, corazauns.y, corazauns.largura, corazauns.altura, corazauns.imagem));
+                    vidas = 4;
+                    pontos = 0;
                 }
             }
         }
