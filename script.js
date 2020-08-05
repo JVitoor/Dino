@@ -53,7 +53,7 @@
     class Meteoro extends Sprite {
         constructor() {
             super (Math.random() * (LARGURA_JOGO - meteoros.largura) + meteoros.largura/2, altura, meteoros.largura, meteoros.altura, meteoros.imagem);
-            this.velocidadeY = 5;
+            this.velocidadeY = 3;
         }
 
         atualiza() {
